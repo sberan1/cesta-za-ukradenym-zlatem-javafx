@@ -25,17 +25,32 @@ public class Prostor {
     private boolean viditelny; //infromace o tom zda je prostor viditelny
     private int zivotnost; //kolik pruchodu se bude mistnost zobrazovat
     private Vymena vymena; //instance vymeny
+    private final Double posTop;
+    private final Double posLeft;
+
+    public Double getPosTop() {
+        return posTop;
+    }
+
+    public Double getPosLeft() {
+        return posLeft;
+    }
+
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
      * před domem"
      *
-     * @param nazev nazev prostoru, jednoznačný identifikátor, jedno slovo nebo
-     * víceslovný název bez mezer.
-     * @param popis Popis prostoru.
+     * @param nazev   nazev prostoru, jednoznačný identifikátor, jedno slovo nebo
+     *                víceslovný název bez mezer.
+     * @param popis   Popis prostoru.
+     * @param posTop
+     * @param posLeft
      */
-    public Prostor(String nazev, String popis, HerniPlan plan) {
+    public Prostor(String nazev, String popis, HerniPlan plan, Double posTop, Double posLeft) {
         this.nazev = nazev;
         this.popis = popis;
+        this.posTop = posTop;
+        this.posLeft = posLeft;
         vychody = new ArrayList<>();
         veciVMistnosti = new ArrayList<>();
         this.zamceno = false;
@@ -43,7 +58,6 @@ public class Prostor {
         this.plan = plan;
         viditelny = true;
         zivotnost = 999;
-        vymena = null;
     }
 
 

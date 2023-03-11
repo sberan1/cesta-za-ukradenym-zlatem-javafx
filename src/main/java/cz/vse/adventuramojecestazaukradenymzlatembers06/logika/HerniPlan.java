@@ -1,7 +1,12 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observable;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -15,7 +20,8 @@ import java.util.List;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova
  *@version    pro školní rok 2016/2017
  */
-public class HerniPlan {
+public class HerniPlan implements Observable {
+    private Set<Observer> observers = new HashSet<>();
     private boolean dlouhyVypis;
     private Prostor aktualniProstor; //prostor ve kterem se prave hrac nachazi
     private Prostor vyherniProstor; //prostor ve kterem hrac automaticky vyhraje
@@ -72,6 +78,7 @@ public class HerniPlan {
      */
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
+       notifyObservers();
     }
 
     /**
@@ -124,22 +131,22 @@ public class HerniPlan {
      */
     private void inicializaceProstoru(){
         // vytvářejí se jednotlivé prostory
-        Prostor hory = new Prostor( "Hory", "Tady jsi v horách, je tu pěkný výhled a všechno ale nic tu není", this);
-        Prostor mesto = new Prostor("Město","Město - Tady se děje všechno svaté i nesvaté", this);
-        Prostor stodola = new Prostor("Stodola", "Stodola - tady je seno a par vandraku, muzes se tu klidne i vyspat nebo tak", this);
-        Prostor kostel = new Prostor("Kostel", "Kostel -  Místo, kde jsme blíže bohu a můžeme zde najít" , this);
-        Prostor dumKovare = new Prostor("DůmKováře","DůmKováře - tady bydlí kovář" , this);
-        Prostor hospoda = new Prostor("Hospoda","Hospoda - tady se pije" , this);
-        Prostor hlubokyLes = new Prostor("HlubokýLes","HlubokýLes - Při vstupu do Hlubokého lesa tě napadli vlci a ubrali ti 20 životů než jsi je stihl zahnat." , this);
-        Prostor pustina = new Prostor("Pustina", "Pustina - tady krom suché hlíny nic nenajdeš, cestou jsi z vyčerpání ztratil 10 životů.", this);
-        Prostor vesnice = new Prostor("Vesnice", "Vesnice - Tady se neděje absolutně nic zajímavého, potkal jsi pár ovcí, a zvláštního kupce co ti za LahevAlkoholu nabízí svůj nůž a kámen.", this);
-        Prostor piratskaLod = new Prostor("PirátskáLoď", "PirátskáLoď - byl jsi napaden a obklíčen, piráti ti nabízejí výměnu lahveAlkoholu a meče za tvůj život.", this);
-        Prostor carodejovaVez = new Prostor("ČarodějovaVěž", "ČarodějovaVěž - Vešel jsi dovnitř, kde tě napadl čaroděj, po dlouhé bitvě jsi ho svými magickými schopnostmi překonal. Přišel jsi o 70 životů.", this);
-        Prostor tajnaPokladnice = new Prostor("TajnáPokladnice", "Vyhrál jsi", this);
-        Prostor les = new Prostor("Les", "Při vstupu do lesa ses praštil o větev a ubylo ti 10 zivotu, jejda", this);
-        Prostor taborak = new Prostor("Táborák", "Došel jsi k taboraku a nejakej pobuda ti tu nabizi nahrdelnik za pullitr, mec a nuz", this);
-        Prostor pastStodola = new Prostor("Stodola", "past", this);
-        Prostor taboriste = new Prostor("Tábořiště", "Našel jsi opuštěné tábořiště, tak se tu kdyžtak zkus poohlédnout", this);
+        Prostor hory = new Prostor( "Hory", "Tady jsi v horách, je tu pěkný výhled a všechno ale nic tu není", this, 90.0, 600.0);
+        Prostor mesto = new Prostor("Město","Město - Tady se děje všechno svaté i nesvaté", this, 150.0, 400.0);
+        Prostor stodola = new Prostor("Stodola", "Stodola - tady je seno a par vandraku, muzes se tu klidne i vyspat nebo tak", this, 150.0, 400.0);
+        Prostor kostel = new Prostor("Kostel", "Kostel -  Místo, kde jsme blíže bohu a můžeme zde najít" , this, 150.0, 400.0);
+        Prostor dumKovare = new Prostor("DůmKováře","DůmKováře - tady bydlí kovář" , this, 150.0, 400.0);
+        Prostor hospoda = new Prostor("Hospoda","Hospoda - tady se pije" , this, 150.0, 400.0);
+        Prostor hlubokyLes = new Prostor("HlubokýLes","HlubokýLes - Při vstupu do Hlubokého lesa tě napadli vlci a ubrali ti 20 životů než jsi je stihl zahnat." , this, 400.0, 275.0);
+        Prostor pustina = new Prostor("Pustina", "Pustina - tady krom suché hlíny nic nenajdeš, cestou jsi z vyčerpání ztratil 10 životů.", this, 550.0, 575.0);
+        Prostor vesnice = new Prostor("Vesnice", "Vesnice - Tady se neděje absolutně nic zajímavého, potkal jsi pár ovcí, a zvláštního kupce co ti za LahevAlkoholu nabízí svůj nůž a kámen.", this, 450.0, 725.0);
+        Prostor piratskaLod = new Prostor("PirátskáLoď", "PirátskáLoď - byl jsi napaden a obklíčen, piráti ti nabízejí výměnu lahveAlkoholu a meče za tvůj život.", this, 325.0, 800.0);
+        Prostor carodejovaVez = new Prostor("ČarodějovaVěž", "ČarodějovaVěž - Vešel jsi dovnitř, kde tě napadl čaroděj, po dlouhé bitvě jsi ho svými magickými schopnostmi překonal. Přišel jsi o 70 životů.", this, 950.0, 500.0);
+        Prostor tajnaPokladnice = new Prostor("TajnáPokladnice", "Vyhrál jsi", this, 950.0, 500.0);
+        Prostor les = new Prostor("Les", "Při vstupu do lesa ses praštil o větev a ubylo ti 10 zivotu, jejda", this, 375.0, 550.0);
+        Prostor taborak = new Prostor("Táborák", "Došel jsi k taboraku a nejakej pobuda ti tu nabizi nahrdelnik za pullitr, mec a nuz", this, 400.0, 125.0);
+        Prostor pastStodola = new Prostor("Stodola", "past", this, 150.0, 300.0);
+        Prostor taboriste = new Prostor("Tábořiště", "Našel jsi opuštěné tábořiště, tak se tu kdyžtak zkus poohlédnout", this, 250.0, 575.0);
 
         prostory.add(hory);
         prostory.add(mesto);
@@ -396,5 +403,22 @@ public class HerniPlan {
      */
     public SeznamPrikazu getPlatnePrikazy() {
         return platnePrikazy;
+    }
+
+    @Override
+    public void register(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregister(Observer observer) {
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+
     }
 }

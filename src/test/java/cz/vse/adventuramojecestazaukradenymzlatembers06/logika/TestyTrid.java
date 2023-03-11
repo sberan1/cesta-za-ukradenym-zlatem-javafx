@@ -22,8 +22,8 @@ public class TestyTrid {
 
     @Test
     void testLzeProjit() {
-        Prostor prostor1 = new Prostor("hala", "xxxx", new HerniPlan());
-        Prostor prostor2 = new Prostor("bufet", "yyyy", new HerniPlan());
+        Prostor prostor1 = new Prostor("hala", "xxxx", new HerniPlan(), posTop, posLeft);
+        Prostor prostor2 = new Prostor("bufet", "yyyy", new HerniPlan(), posTop, posLeft);
 
         prostor1.setVychod(prostor2);
         prostor2.setVychod(prostor1);
@@ -36,7 +36,7 @@ public class TestyTrid {
     void testNavratoveHodnotyObjektuPriObjektuVec() {
 
         Vec neco = new Vec("neco", true, true);
-        Prostor prostor = new Prostor("nazev", "popis", null);
+        Prostor prostor = new Prostor("nazev", "popis", null, posTop, posLeft);
 
         Object o = 20;
 
