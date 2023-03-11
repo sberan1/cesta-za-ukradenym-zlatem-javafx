@@ -12,18 +12,18 @@ public class TestyTrid {
     public Hra hra;
     @BeforeEach
     void setUp() {
-        hra = Hra.getSingleton();
+        hra = new Hra();
     }
 
     @AfterEach
     void tearDown() {
-        hra = Hra.getSingleton();
+        hra = new Hra();
     }
 
     @Test
     void testLzeProjit() {
-        Prostor prostor1 = new Prostor("hala", "xxxx", new HerniPlan(), 300.0, 40.0);
-        Prostor prostor2 = new Prostor("bufet", "yyyy", new HerniPlan(), 300.0, 40.0);
+        Prostor prostor1 = new Prostor("hala", "xxxx", new HerniPlan());
+        Prostor prostor2 = new Prostor("bufet", "yyyy", new HerniPlan());
 
         prostor1.setVychod(prostor2);
         prostor2.setVychod(prostor1);
@@ -36,12 +36,12 @@ public class TestyTrid {
     void testNavratoveHodnotyObjektuPriObjektuVec() {
 
         Vec neco = new Vec("neco", true, true);
-        Prostor prostor = new Prostor("nazev", "popis", null, 300.0, 40.0);
+        Prostor prostor = new Prostor("nazev", "popis", null);
 
         Object o = 20;
 
-        //assertEquals(((Object) neco).getClass().getName(), "logika.Vec");
-        //assertEquals(((Object) prostor).getClass().getName(), "logika.Prostor");
+        assertEquals(((Object) neco).getClass().getName(), "logika.Vec");
+        assertEquals(((Object) prostor).getClass().getName(), "logika.Prostor");
         assertEquals(o.getClass().getName(), "java.lang.Integer");
     }
 
@@ -125,7 +125,7 @@ public class TestyTrid {
     void testPrikazVymenaSVymenouKorektniVypsani() {
         hra.zpracujPrikaz("jdi les");
         hra.zpracujPrikaz("jdi vesnice");
-       // assertEquals(hra.zpracujPrikaz("vymena"), "zvláštní kupec ti nabizi za LahevAlkoholu svůj nůž a kámen\n" +
-           //     " pokud mas vsechny predmety tak to aktivujes napsanim vymen lahev");
+        assertEquals(hra.zpracujPrikaz("vymena"), "zvláštní kupec ti nabizi za LahevAlkoholu svůj nůž a kámen\n" +
+                " pokud mas vsechny predmety tak to aktivujes napsanim vymen lahev");
     }
 }

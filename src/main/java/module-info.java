@@ -3,6 +3,6 @@ module cz.vse.adventuramojecestazaukradenymzlatembers06 {
     requires javafx.fxml;
 
 
-    opens cz.vse.adventuramojecestazaukradenymzlatembers06.main to javafx.fxml;
-    exports cz.vse.adventuramojecestazaukradenymzlatembers06.main;
+    opens cz.vse.adventuramojecestazaukradenymzlatembers06 to javafx.fxml;
+    exports cz.vse.adventuramojecestazaukradenymzlatembers06;
 }

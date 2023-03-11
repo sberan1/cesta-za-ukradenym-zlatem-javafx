@@ -1,7 +1,6 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.uiText;
 
 
-import cz.vse.adventuramojecestazaukradenymzlatembers06.logika.Hra;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.logika.IHra;
 
 import java.util.Scanner;
@@ -20,12 +19,6 @@ import java.util.Scanner;
 
 public class TextoveRozhrani {
     private IHra hra;
-
-
-    public static void main(String[] args) {
-        Hra hra = Hra.getSingleton();
-        new TextoveRozhrani(hra).hraj();
-    }
 
     /**
      *  Vytváří hru.

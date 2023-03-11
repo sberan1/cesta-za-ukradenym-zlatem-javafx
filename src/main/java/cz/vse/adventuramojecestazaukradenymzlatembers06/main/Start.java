@@ -23,18 +23,17 @@ public class Start
     public static void main(String[] args)
     {
         if (args.length == 0){
-            Adventura.main(args);
+            IHra hra = new Hra();
+            TextoveRozhrani ui = new TextoveRozhrani(hra);
+            ui.hraj();
         }
-        else if (args[0].equals("-vypis")) {
-            IHra hra = Hra.getSingleton();
+        else if (args[0].equals("vypis")) {
+            IHra hra = new Hra();
             hra.getHerniPlan().setDlouhyVypis(true);
             TextoveRozhrani ui = new TextoveRozhrani(hra);
             ui.hraj();
-        } else if (args[0].equals("-text")) {
-            IHra hra = Hra.getSingleton();
-            TextoveRozhrani ui = new TextoveRozhrani(hra);
-            ui.hraj();
-        } else {
+        }
+        else {
             System.out.println("chyba");
         }
     }
