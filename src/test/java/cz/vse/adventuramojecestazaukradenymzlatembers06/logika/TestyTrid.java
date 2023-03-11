@@ -12,12 +12,12 @@ public class TestyTrid {
     public Hra hra;
     @BeforeEach
     void setUp() {
-        hra = new Hra();
+        hra = Hra.getSingleton();
     }
 
     @AfterEach
     void tearDown() {
-        hra = new Hra();
+        hra = Hra.getSingleton();
     }
 
     @Test

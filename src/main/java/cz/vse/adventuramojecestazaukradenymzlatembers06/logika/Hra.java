@@ -25,11 +25,23 @@ public class Hra implements IHra {
     private static boolean konecHry = false; //nastavuje konec hry
     private String epilog = "Dohrál jsi tuto úžasnou hru, našel jsi ukradené zlato a je už jen na tobě, jestli si ho necháš, nebo ho půjdeš vrátit do města. Děkuji za zahrání!";
     private List<String> pouzitePrikazy;
+    private static Hra singleton = new Hra();
 
+    /**
+     * Podle navrhoveho vzoru Singleton (GoF).
+     */
+    public static Hra getSingleton(){
+        return singleton;
+    }
+
+    public static Hra restartHry() {
+        singleton = new Hra();
+        return singleton;
+    }
     /**
      * Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
      */
-    public Hra() {
+    private Hra() {
         herniPlan = new HerniPlan();
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazNapoveda(herniPlan.getPlatnePrikazy()));
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazJdi(this));

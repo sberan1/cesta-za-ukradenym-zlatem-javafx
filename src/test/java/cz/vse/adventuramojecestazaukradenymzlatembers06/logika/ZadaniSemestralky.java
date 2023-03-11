@@ -8,16 +8,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ZadaniSemestralky {
     
-    private Hra hra = new Hra();
+    private Hra hra = Hra.getSingleton();
     
     @BeforeEach
     public void setUp(){
-        hra = new Hra();
+        hra = Hra.getSingleton();
     }
 
     @AfterEach
     void tearDown() {
-        hra = new Hra();
+        hra = Hra.getSingleton();
     }
 
 
