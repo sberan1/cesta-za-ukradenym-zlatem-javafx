@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -34,24 +35,29 @@ public class Adventura extends Application {
         TextArea textArea = new TextArea();
         TextField uzivatelskyVstup = new TextField();
 
+        textArea.setMaxWidth(250);
+        textArea.setMinHeight(700);
+        textArea.setWrapText(true);
+
         Label label = new Label("Zadej prikaz: ");
         label.setAlignment(Pos.CENTER);
         label.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         HBox hBox = new HBox();
         hBox.getChildren().addAll(label, uzivatelskyVstup);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(textArea, hBox);
 
-        parent.setCenter(textArea);
-        parent.setBottom(hBox);
+        parent.setRight(vbox);
 
         AnchorPane ap = pripravMapuHry();
-        parent.setTop(ap);
+        parent.setLeft(ap);
 
         nastavTextAreaAUzivatelskyVstup(textArea, uzivatelskyVstup);
         //Button button = new Button("Press me!");
         //parent.setCenter(button);
 
 
-        Scene value = new Scene(parent, 1000, 2000);
+        Scene value = new Scene(parent, 1250, 750);
         primaryStage.setScene(value);
         primaryStage.show();
     }
@@ -69,7 +75,7 @@ public class Adventura extends Application {
         vstup.setOnAction(actionEvent -> {
             String prikaz = vstup.getText();
             String output = hra.zpracujPrikaz(prikaz);
-            textArea.appendText("\n" + output + "\n");
+            textArea.appendText("\n" + output + "\n" + "\n");
             vstup.setText("");
         });
     }
