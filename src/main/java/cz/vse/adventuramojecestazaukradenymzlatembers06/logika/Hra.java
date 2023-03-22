@@ -2,6 +2,8 @@ package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
 
 
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observable;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -179,6 +181,7 @@ public class Hra implements IHra {
     public void setEpilog(String epilog) {
         this.epilog = epilog;
     }
+
 
 }
 

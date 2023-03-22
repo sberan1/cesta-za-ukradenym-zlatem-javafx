@@ -1,15 +1,19 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.main;
 
+import cz.vse.adventuramojecestazaukradenymzlatembers06.gui.ListBatohComponent;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.gui.ListVychoduComponent;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.gui.MapaHry;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.logika.Hra;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.logika.IHra;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.uiText.TextoveRozhrani;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -47,17 +51,35 @@ public class Adventura extends Application {
         VBox vbox = new VBox();
         vbox.getChildren().addAll(textArea, hBox);
 
+        ListVychoduComponent listVychodu = new ListVychoduComponent(hra.getHerniPlan());
+        ListBatohComponent listBatoh = new ListBatohComponent();
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(new Label("Vychody"),listVychodu, new Label("Batoh"), listBatoh, new Label("Veci v Mistnosti"));
+        parent.setLeft(vBox);
+
+        listVychodu.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
+                    String selectedItem = listVychodu.getSelectionModel().getSelectedItem();
+                    if (selectedItem != null) {
+                        String odpoved = hra.zpracujPrikaz("jdi " + selectedItem);
+                        textArea.appendText("\n" + odpoved + "\n");
+                        System.out.println("clicked on " + selectedItem + "!");
+                    }
+                }
+            }
+        } );
+
         parent.setRight(vbox);
 
         AnchorPane ap = pripravMapuHry();
-        parent.setLeft(ap);
+        parent.setCenter(ap);
 
         nastavTextAreaAUzivatelskyVstup(textArea, uzivatelskyVstup);
-        //Button button = new Button("Press me!");
-        //parent.setCenter(button);
 
 
-        Scene value = new Scene(parent, 1250, 750);
+        Scene value = new Scene(parent, 1500, 750);
         primaryStage.setScene(value);
         primaryStage.show();
     }

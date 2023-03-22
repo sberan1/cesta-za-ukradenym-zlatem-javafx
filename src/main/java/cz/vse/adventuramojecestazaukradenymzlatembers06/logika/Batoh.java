@@ -1,16 +1,22 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observable;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
+
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class Batoh - trida pro realizaci batohu na uchovavani predmetu
  *
  * @author sBeran1
  */
-public class Batoh {
+public class Batoh implements Observable {
     private int velikostBatuzku; //nastavuje pocet veci co se vejde do batohu
     private ArrayList<Vec> obsah; //list s vecmi co se nachazi v batohu
+    private Set<Observer> observers = new HashSet<>();
 
     /**
      * konstruktor pro zalozeni instance kosicku
@@ -29,6 +35,7 @@ public class Batoh {
     public boolean vlozVec(Vec neco){
         if(obsah.size() < velikostBatuzku){
             obsah.add(neco);
+            notifyObservers();
             return true;
         }
             return false;
@@ -46,6 +53,7 @@ public class Batoh {
         for (var item : obsah){
             if (normalizedNazev.equals(item.getNormalizedNazev())){
                 obsah.remove(item);
+                notifyObservers();
                 return true;
             }
         }
@@ -83,5 +91,22 @@ public class Batoh {
      */
     public ArrayList<Vec> getObsah(){
         return (ArrayList<Vec>) obsah.clone();
+    }
+    @Override
+    public void register(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregister(Observer observer) {
+
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+
     }
 }
