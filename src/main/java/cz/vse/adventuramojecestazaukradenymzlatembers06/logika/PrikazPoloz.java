@@ -1,5 +1,7 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
+import java.text.Normalizer;
+
 /**
  * Trida PrikazPoloz - trida pro realizaci prikazu poloz
  *
@@ -38,13 +40,13 @@ public class PrikazPoloz implements IPrikaz{
         }
         Vec mistni = null;
         for (var item : plan.getBatuzek().getObsah()) {
-            if (parametry[0].equalsIgnoreCase(item.getNormalizedNazev())){
+            if (Normalizer.normalize(parametry[0], Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").equalsIgnoreCase(item.getNormalizedNazev())){
                 mistni = item;
             }
         }
         if(plan.getBatuzek().odeberVec(parametry[0])) {
             plan.getAktualniProstor().vlozVec(mistni);
-            return mistni.getNazev() + "jsi teda polozil na zem, v batohu uz to nemas";
+            return mistni.getNazev() + " jsi teda polozil na zem, v batohu uz to nemas";
         }
         return "to nemas v batohu, tak jak bys to chtel polozit prosimte?";
     }

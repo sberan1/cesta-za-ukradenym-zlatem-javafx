@@ -67,6 +67,9 @@ public class Batoh implements Observable {
     public int getVelikostBatuzku() {
         return obsah.size();
     }
+    public int getMaximalniVelikostBatuzku() {
+        return velikostBatuzku;
+    }
 
     /**
      * Vraci textovy         retezec s nazvama veci

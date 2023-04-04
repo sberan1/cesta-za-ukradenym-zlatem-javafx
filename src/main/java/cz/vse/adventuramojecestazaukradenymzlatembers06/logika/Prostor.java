@@ -1,5 +1,8 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observable;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
+
 import java.text.Normalizer;
 import java.util.*;
 
@@ -13,7 +16,7 @@ import java.util.*;
  * @author Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova
  * @version pro školní rok 2016/2017
  */
-public class Prostor {
+public class Prostor implements Observable {
     private int counter = 0;
     private String nazev; //nazev mistnosti
     private String popis; //popis mistnosti
@@ -27,6 +30,7 @@ public class Prostor {
     private Vymena vymena; //instance vymeny
     private final Double posTop;
     private final Double posLeft;
+    Set<Observer> observers = new HashSet<>();
 
     public Double getPosTop() {
         return posTop;
@@ -91,6 +95,7 @@ public class Prostor {
      */
     public void vlozVec(Vec vec) {
         veciVMistnosti.add(vec);
+        notifyObservers();
     }
 
     /**
@@ -256,7 +261,7 @@ public class Prostor {
     }
     private String vypisKonec(){
         return "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
-                + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15";
+                + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/" + plan.getBatuzek().getMaximalniVelikostBatuzku();
     }
 
     private String vypisSpecial(SeznamPrikazu seznamPrikazu){
@@ -522,5 +527,25 @@ public class Prostor {
         counter++;
     }
 
+    public List<Vec> getVeciVMistnosti() {
+        return Collections.unmodifiableList(veciVMistnosti);
+    }
+
+    @Override
+    public void register(cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregister(cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer observer) {
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+
+    }
 
 }

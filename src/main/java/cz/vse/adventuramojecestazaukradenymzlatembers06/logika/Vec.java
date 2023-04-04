@@ -1,5 +1,7 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
+import javafx.scene.image.Image;
+
 import java.text.Normalizer;
 /**
  * Trida Vec - trida pro realizaci veci, ktere muzeme najit v mistnostech a ukladat je do batohu a prenaset je
@@ -17,6 +19,7 @@ public class Vec {
     private boolean pouzitelna; //pouzitelnost veci a funkce pro dva konstruktory
     private Pouzitelnosti typ; //volba z Enumu Pouzitelnosti pro typ pouzitelne veci
     private int modifikator; //modifikator kolik dane vlastnosti ma predmet pridat/ubrat
+    private Image obrazek;
 
     /**
      * Konstruktor pro vytvoreni pouzitelne veci, pomaha nam zakladat instance pouzitelnych veci
@@ -27,13 +30,14 @@ public class Vec {
      * @param typ - typ veci z Enumu Pouzitelnosti
      * @param modifikator - ciselna hodnota kolik ma vec ubrat/pridat
      */
-    public Vec(String nazev, boolean prenositelna, boolean viditelna, Pouzitelnosti typ, int modifikator) {
+    public Vec(String nazev, boolean prenositelna, boolean viditelna, Pouzitelnosti typ, int modifikator, String cestaKObrazku) {
         this.nazev = nazev;
         this.prenositelna = prenositelna;
         this.viditelna = viditelna;
         pouzitelna = true;
         this.typ = typ;
         this.modifikator = modifikator;
+        obrazek = new Image(getClass().getResourceAsStream(cestaKObrazku),100, 100, true, true);
     }
 
     /**
@@ -44,12 +48,13 @@ public class Vec {
      * @param viditelnost - zakladni viditelnost veci v mistnosti
      */
 
-    public Vec(String nazev, boolean prenositelnost, boolean viditelnost) {
+    public Vec(String nazev, boolean prenositelnost, boolean viditelnost, String cestaKObrazku) {
         this.nazev = nazev;
         this.prenositelna = prenositelnost;
         this.viditelna = viditelnost;
         pouzitelna = false;
         typ = null;
+        obrazek = new Image(getClass().getResourceAsStream(cestaKObrazku),100, 100, true, true);
     }
 
     /**
@@ -68,6 +73,10 @@ public class Vec {
      */
     public boolean jePrenositelna() {
         return prenositelna;
+    }
+
+    public Image getObrazek() {
+        return obrazek;
     }
 
     /**

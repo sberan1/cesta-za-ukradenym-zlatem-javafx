@@ -1,21 +1,22 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.gui;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
+
+import cz.vse.adventuramojecestazaukradenymzlatembers06.main.Adventura;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.logika.Hra;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
 
-public class ListBatohComponent extends ListView<String> implements Observer {
+
+public class ListBatohComponent extends FlowPane implements Observer {
 
     private Hra hra = Hra.getSingleton();
-    private ObservableList<String> itemsList;
 
     public ListBatohComponent() {
         hra.getHerniPlan().getBatuzek().register(this);
-
-        itemsList = FXCollections.observableArrayList();
-        setItems(itemsList);
+        Label label = new Label("Obsah batohu:");
+        getChildren().add(label);
 
         update();
     }
@@ -25,8 +26,20 @@ public class ListBatohComponent extends ListView<String> implements Observer {
 
     @Override
     public void update() {
-        itemsList.clear();
-        hra.getHerniPlan().getBatuzek().getObsah().forEach(vec -> itemsList.add(vec.getNazev()));
-        }
+        getChildren().clear();
+        hra.getHerniPlan().getBatuzek().getObsah().forEach(vec -> {
+            ImageView imageView = new ImageView(vec.getObrazek());
+            imageView.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    if (vec != null) {
+                        String odpoved = hra.zpracujPrikaz("pouzij " + vec.getNazev());
+                        Adventura.getTextArea().appendText("\n" + odpoved + "\n");
+                        System.out.println("clicked on " + vec.getNazev() + "!");
+                    }
+                }
+            });
+            getChildren().add(imageView);
+        });
     }
+}
 

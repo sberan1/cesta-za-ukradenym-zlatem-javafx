@@ -28,7 +28,7 @@ public class HerniPlan implements Observable {
     private Prostor proherniProstor; //prostor ktery pro hrace ukonci hru
     private List<Prostor> prostory = new ArrayList<>(); //kolekce se vsemi prostory ve hre
     private List<Vec> veci = new ArrayList<>(); //kolekce se vsemi vecmi ve hre
-    private Batoh batuzek = new Batoh(15); //zakladame instanci batohu s vybranou velikosti
+    private Batoh batuzek = new Batoh(6); //zakladame instanci batohu s vybranou velikosti
     private int pocetZivotu = 100; //nastaveni defaultniho poctu zivotu
     private SeznamPrikazu platnePrikazy;
 
@@ -166,57 +166,57 @@ public class HerniPlan implements Observable {
         prostory.add(taboriste);
 
         //zalozeni veci
-        Vec mrtvaKrysa = new Vec("MrtváKrysa", true, true);
+        Vec mrtvaKrysa = new Vec("MrtváKrysa", true, true, "mrtvaKrysa.png");
         veci.add(mrtvaKrysa);
-        Vec strepy = new Vec("Střepy", true, true);
+        Vec strepy = new Vec("Střepy", true, true, "strepy.png");
         veci.add(strepy);
-        Vec barel = new Vec("Barel", false, true);
+        Vec barel = new Vec("Barel", false, true, "barel.png");
         veci.add(barel);
-        Vec lampa = new Vec("Lampa", false, true);
+        Vec lampa = new Vec("Lampa", false, true,"lampa.jpeg");
         veci.add(lampa);
-        Vec roba = new Vec("Róba", true, true);
+        Vec roba = new Vec("Róba", true, true, "roba.gif");
         veci.add(roba);
-        Vec zezlo = new Vec("Žezlo", true, true);
+        Vec zezlo = new Vec("Žezlo", true, true, "zezlo.png");
         veci.add(zezlo);
-        Vec lavice = new Vec("Lavice", false, true);
+        Vec lavice = new Vec("Lavice", false, true, "lavice.png");
         veci.add(lavice);
-        Vec klicKostel = new Vec("Klíč", true, false);
+        Vec klicKostel = new Vec("Klíč", true, false,"klic.png");
         veci.add(klicKostel);
-        Vec lektvarZivota = new Vec("LektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 100);
+        Vec lektvarZivota = new Vec("LektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 100, "lektvarZivota.png");
         veci.add(lektvarZivota);
-        Vec mec = new Vec("Meč", true, true);
+        Vec mec = new Vec("Meč", true, true, "mec.png");
         veci.add(mec);
-        Vec stul = new Vec("Stůl", false, true);
+        Vec stul = new Vec("Stůl", false, true, "stul.png");
         veci.add(stul);
-        Vec nuz = new Vec("Nůž", true, true);
+        Vec nuz = new Vec("Nůž", true, true, "nuz.png");
         veci.add(nuz);
-        Vec pullitr = new Vec("Půllitr", true, true);
+        Vec pullitr = new Vec("Půllitr", true, true, "pullitr.jpeg");
         veci.add(pullitr);
-        Vec zidle = new Vec("Židle", false, true);
+        Vec zidle = new Vec("Židle", false, true, "zidle.png");
         veci.add(zidle);
-        Vec lahevAlkoholu = new Vec("LahevAlkoholu", true, true);
+        Vec lahevAlkoholu = new Vec("LahevAlkoholu", true, true, "lahevvina.jpeg");
         veci.add(lahevAlkoholu);
-        Vec klacek = new Vec("Klacek", true, true);
+        Vec klacek = new Vec("Klacek", true, true, "klacek.png");
         veci.add(klacek);
-        Vec kamen = new Vec("Kámen", true, true);
+        Vec kamen = new Vec("Kámen", true, true, "kamen.png");
         veci.add(kamen);
-        Vec strom = new Vec("Strom", false, true);
+        Vec strom = new Vec("Strom", false, true, "strom.png");
         veci.add(strom);
-        Vec klicHlubokyLes = new Vec("Klíč", true, false);
+        Vec klicHlubokyLes = new Vec("Klíč", true, false, "klic.png");
         veci.add(klicHlubokyLes);
-        Vec stan = new Vec("Stan", false, true);
+        Vec stan = new Vec("Stan", false, true, "stan.png");
         veci.add(stan);
-        Vec klicTaboriste = new Vec("Klíč", true, false);
+        Vec klicTaboriste = new Vec("Klíč", true, false, "klic.png");
         veci.add(klicTaboriste);
-        Vec lektvarLes = new Vec("MalýLektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 50);
+        Vec lektvarLes = new Vec("MalýLektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 50, "lektvarZivota.png");
         veci.add(lektvarLes);
-        Vec nahrdelnik = new Vec("Náhrdelník", true, true);
+        Vec nahrdelnik = new Vec("Náhrdelník", true, true, "nahrdelnik.png");
         veci.add(nahrdelnik);
-        Vec parez = new Vec("Pařez", false, true);
+        Vec parez = new Vec("Pařez", false, true, "parez.png");
         veci.add(parez);
-        Vec slama = new Vec("Sláma", true, true);
+        Vec slama = new Vec("Sláma", true, true, "slama.jpg");
         veci.add(slama);
-        Vec seno = new Vec("Seno", true, true);
+        Vec seno = new Vec("Seno", true, true,"seno.png");
         veci.add(seno);
 
         //zalozeni vymen
