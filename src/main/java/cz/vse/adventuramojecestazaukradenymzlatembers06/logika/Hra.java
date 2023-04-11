@@ -2,8 +2,10 @@ package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
 
 
+import cz.vse.adventuramojecestazaukradenymzlatembers06.main.Adventura;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observable;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
+import javafx.scene.control.TextArea;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -147,7 +149,8 @@ public class Hra implements IHra{
             reader.close();
             String[] actionStrings = str.toString().split("\n");
             for (String actionString : actionStrings) {
-                zpracujPrikaz(actionString);
+                TextArea textArea = Adventura.getTextArea();
+                textArea.appendText("\n" + zpracujPrikaz(actionString) + "\n" + "\n");
             }
         } catch (IOException e) {
             // handle exception

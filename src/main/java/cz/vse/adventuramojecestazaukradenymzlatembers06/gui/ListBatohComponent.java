@@ -15,11 +15,10 @@ public class ListBatohComponent extends FlowPane implements Observer {
 
     public ListBatohComponent() {
         hra.getHerniPlan().getBatuzek().register(this);
-        Label label = new Label("Obsah batohu:");
-        getChildren().add(label);
 
         update();
     }
+
 
 
 
