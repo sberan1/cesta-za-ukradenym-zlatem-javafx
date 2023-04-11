@@ -1,7 +1,12 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observable;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -15,14 +20,15 @@ import java.util.List;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova
  *@version    pro školní rok 2016/2017
  */
-public class HerniPlan {
+public class HerniPlan implements Observable {
+    private Set<Observer> observers = new HashSet<>();
     private boolean dlouhyVypis;
     private Prostor aktualniProstor; //prostor ve kterem se prave hrac nachazi
     private Prostor vyherniProstor; //prostor ve kterem hrac automaticky vyhraje
     private Prostor proherniProstor; //prostor ktery pro hrace ukonci hru
     private List<Prostor> prostory = new ArrayList<>(); //kolekce se vsemi prostory ve hre
     private List<Vec> veci = new ArrayList<>(); //kolekce se vsemi vecmi ve hre
-    private Batoh batuzek = new Batoh(15); //zakladame instanci batohu s vybranou velikosti
+    private Batoh batuzek = new Batoh(6); //zakladame instanci batohu s vybranou velikosti
     private int pocetZivotu = 100; //nastaveni defaultniho poctu zivotu
     private SeznamPrikazu platnePrikazy;
 
@@ -72,6 +78,7 @@ public class HerniPlan {
      */
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
+       notifyObservers();
     }
 
     /**
@@ -124,22 +131,22 @@ public class HerniPlan {
      */
     private void inicializaceProstoru(){
         // vytvářejí se jednotlivé prostory
-        Prostor hory = new Prostor( "Hory", "Tady jsi v horách, je tu pěkný výhled a všechno ale nic tu není", this);
-        Prostor mesto = new Prostor("Město","Město - Tady se děje všechno svaté i nesvaté", this);
-        Prostor stodola = new Prostor("Stodola", "Stodola - tady je seno a par vandraku, muzes se tu klidne i vyspat nebo tak", this);
-        Prostor kostel = new Prostor("Kostel", "Kostel -  Místo, kde jsme blíže bohu a můžeme zde najít" , this);
-        Prostor dumKovare = new Prostor("DůmKováře","DůmKováře - tady bydlí kovář" , this);
-        Prostor hospoda = new Prostor("Hospoda","Hospoda - tady se pije" , this);
-        Prostor hlubokyLes = new Prostor("HlubokýLes","HlubokýLes - Při vstupu do Hlubokého lesa tě napadli vlci a ubrali ti 20 životů než jsi je stihl zahnat." , this);
-        Prostor pustina = new Prostor("Pustina", "Pustina - tady krom suché hlíny nic nenajdeš, cestou jsi z vyčerpání ztratil 10 životů.", this);
-        Prostor vesnice = new Prostor("Vesnice", "Vesnice - Tady se neděje absolutně nic zajímavého, potkal jsi pár ovcí, a zvláštního kupce co ti za LahevAlkoholu nabízí svůj nůž a kámen.", this);
-        Prostor piratskaLod = new Prostor("PirátskáLoď", "PirátskáLoď - byl jsi napaden a obklíčen, piráti ti nabízejí výměnu lahveAlkoholu a meče za tvůj život.", this);
-        Prostor carodejovaVez = new Prostor("ČarodějovaVěž", "ČarodějovaVěž - Vešel jsi dovnitř, kde tě napadl čaroděj, po dlouhé bitvě jsi ho svými magickými schopnostmi překonal. Přišel jsi o 70 životů.", this);
-        Prostor tajnaPokladnice = new Prostor("TajnáPokladnice", "Vyhrál jsi", this);
-        Prostor les = new Prostor("Les", "Při vstupu do lesa ses praštil o větev a ubylo ti 10 zivotu, jejda", this);
-        Prostor taborak = new Prostor("Táborák", "Došel jsi k taboraku a nejakej pobuda ti tu nabizi nahrdelnik za pullitr, mec a nuz", this);
-        Prostor pastStodola = new Prostor("Stodola", "past", this);
-        Prostor taboriste = new Prostor("Tábořiště", "Našel jsi opuštěné tábořiště, tak se tu kdyžtak zkus poohlédnout", this);
+        Prostor hory = new Prostor( "Hory", "Tady jsi v horách, je tu pěkný výhled a všechno ale nic tu není", this, 90.0, 600.0);
+        Prostor mesto = new Prostor("Město","Město - Tady se děje všechno svaté i nesvaté", this, 150.0, 400.0);
+        Prostor stodola = new Prostor("Stodola", "Stodola - tady je seno a par vandraku, muzes se tu klidne i vyspat nebo tak", this, 150.0, 400.0);
+        Prostor kostel = new Prostor("Kostel", "Kostel -  Místo, kde jsme blíže bohu a můžeme zde najít" , this, 150.0, 400.0);
+        Prostor dumKovare = new Prostor("DůmKováře","DůmKováře - tady bydlí kovář" , this, 150.0, 400.0);
+        Prostor hospoda = new Prostor("Hospoda","Hospoda - tady se pije" , this, 150.0, 400.0);
+        Prostor hlubokyLes = new Prostor("HlubokýLes","HlubokýLes - Při vstupu do Hlubokého lesa tě napadli vlci a ubrali ti 20 životů než jsi je stihl zahnat." , this, 400.0, 275.0);
+        Prostor pustina = new Prostor("Pustina", "Pustina - tady krom suché hlíny nic nenajdeš, cestou jsi z vyčerpání ztratil 10 životů.", this, 550.0, 575.0);
+        Prostor vesnice = new Prostor("Vesnice", "Vesnice - Tady se neděje absolutně nic zajímavého, potkal jsi pár ovcí, a zvláštního kupce co ti za LahevAlkoholu nabízí svůj nůž a kámen.", this, 450.0, 725.0);
+        Prostor piratskaLod = new Prostor("PirátskáLoď", "PirátskáLoď - byl jsi napaden a obklíčen, piráti ti nabízejí výměnu lahveAlkoholu a meče za tvůj život.", this, 325.0, 800.0);
+        Prostor carodejovaVez = new Prostor("ČarodějovaVěž", "ČarodějovaVěž - Vešel jsi dovnitř, kde tě napadl čaroděj, po dlouhé bitvě jsi ho svými magickými schopnostmi překonal. Přišel jsi o 70 životů.", this, 950.0, 500.0);
+        Prostor tajnaPokladnice = new Prostor("TajnáPokladnice", "Vyhrál jsi", this, 950.0, 500.0);
+        Prostor les = new Prostor("Les", "Při vstupu do lesa ses praštil o větev a ubylo ti 10 zivotu, jejda", this, 375.0, 550.0);
+        Prostor taborak = new Prostor("Táborák", "Došel jsi k taboraku a nejakej pobuda ti tu nabizi nahrdelnik za pullitr, mec a nuz", this, 400.0, 125.0);
+        Prostor pastStodola = new Prostor("Stodola", "past", this, 150.0, 300.0);
+        Prostor taboriste = new Prostor("Tábořiště", "Našel jsi opuštěné tábořiště, tak se tu kdyžtak zkus poohlédnout", this, 250.0, 575.0);
 
         prostory.add(hory);
         prostory.add(mesto);
@@ -159,57 +166,57 @@ public class HerniPlan {
         prostory.add(taboriste);
 
         //zalozeni veci
-        Vec mrtvaKrysa = new Vec("MrtváKrysa", true, true);
+        Vec mrtvaKrysa = new Vec("MrtváKrysa", true, true, "mrtvaKrysa.png");
         veci.add(mrtvaKrysa);
-        Vec strepy = new Vec("Střepy", true, true);
+        Vec strepy = new Vec("Střepy", true, true, "strepy.png");
         veci.add(strepy);
-        Vec barel = new Vec("Barel", false, true);
+        Vec barel = new Vec("Barel", false, true, "barel.png");
         veci.add(barel);
-        Vec lampa = new Vec("Lampa", false, true);
+        Vec lampa = new Vec("Lampa", false, true,"lampa.jpeg");
         veci.add(lampa);
-        Vec roba = new Vec("Róba", true, true);
+        Vec roba = new Vec("Róba", true, true, "roba.gif");
         veci.add(roba);
-        Vec zezlo = new Vec("Žezlo", true, true);
+        Vec zezlo = new Vec("Žezlo", true, true, "zezlo.png");
         veci.add(zezlo);
-        Vec lavice = new Vec("Lavice", false, true);
+        Vec lavice = new Vec("Lavice", false, true, "lavice.png");
         veci.add(lavice);
-        Vec klicKostel = new Vec("Klíč", true, false);
+        Vec klicKostel = new Vec("Klíč", true, false,"klic.png");
         veci.add(klicKostel);
-        Vec lektvarZivota = new Vec("LektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 100);
+        Vec lektvarZivota = new Vec("LektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 100, "lektvarZivota.png");
         veci.add(lektvarZivota);
-        Vec mec = new Vec("Meč", true, true);
+        Vec mec = new Vec("Meč", true, true, "mec.png");
         veci.add(mec);
-        Vec stul = new Vec("Stůl", false, true);
+        Vec stul = new Vec("Stůl", false, true, "stul.png");
         veci.add(stul);
-        Vec nuz = new Vec("Nůž", true, true);
+        Vec nuz = new Vec("Nůž", true, true, "nuz.png");
         veci.add(nuz);
-        Vec pullitr = new Vec("Půllitr", true, true);
+        Vec pullitr = new Vec("Půllitr", true, true, "pullitr.jpeg");
         veci.add(pullitr);
-        Vec zidle = new Vec("Židle", false, true);
+        Vec zidle = new Vec("Židle", false, true, "zidle.png");
         veci.add(zidle);
-        Vec lahevAlkoholu = new Vec("LahevAlkoholu", true, true);
+        Vec lahevAlkoholu = new Vec("LahevAlkoholu", true, true, "lahevvina.jpeg");
         veci.add(lahevAlkoholu);
-        Vec klacek = new Vec("Klacek", true, true);
+        Vec klacek = new Vec("Klacek", true, true, "klacek.png");
         veci.add(klacek);
-        Vec kamen = new Vec("Kámen", true, true);
+        Vec kamen = new Vec("Kámen", true, true, "kamen.png");
         veci.add(kamen);
-        Vec strom = new Vec("Strom", false, true);
+        Vec strom = new Vec("Strom", false, true, "strom.png");
         veci.add(strom);
-        Vec klicHlubokyLes = new Vec("Klíč", true, false);
+        Vec klicHlubokyLes = new Vec("Klíč", true, false, "klic.png");
         veci.add(klicHlubokyLes);
-        Vec stan = new Vec("Stan", false, true);
+        Vec stan = new Vec("Stan", false, true, "stan.png");
         veci.add(stan);
-        Vec klicTaboriste = new Vec("Klíč", true, false);
+        Vec klicTaboriste = new Vec("Klíč", true, false, "klic.png");
         veci.add(klicTaboriste);
-        Vec lektvarLes = new Vec("MalýLektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 50);
+        Vec lektvarLes = new Vec("MalýLektvarŽivota", true, false, Pouzitelnosti.LEKTVAR, 50, "lektvarZivota.png");
         veci.add(lektvarLes);
-        Vec nahrdelnik = new Vec("Náhrdelník", true, true);
+        Vec nahrdelnik = new Vec("Náhrdelník", true, true, "nahrdelnik.png");
         veci.add(nahrdelnik);
-        Vec parez = new Vec("Pařez", false, true);
+        Vec parez = new Vec("Pařez", false, true, "parez.png");
         veci.add(parez);
-        Vec slama = new Vec("Sláma", true, true);
+        Vec slama = new Vec("Sláma", true, true, "slama.jpg");
         veci.add(slama);
-        Vec seno = new Vec("Seno", true, true);
+        Vec seno = new Vec("Seno", true, true,"seno.png");
         veci.add(seno);
 
         //zalozeni vymen
@@ -396,5 +403,22 @@ public class HerniPlan {
      */
     public SeznamPrikazu getPlatnePrikazy() {
         return platnePrikazy;
+    }
+
+    @Override
+    public void register(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregister(Observer observer) {
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+
     }
 }

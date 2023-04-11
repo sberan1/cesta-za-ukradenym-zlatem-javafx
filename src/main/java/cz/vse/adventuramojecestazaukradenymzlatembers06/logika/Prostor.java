@@ -1,5 +1,8 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observable;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
+
 import java.text.Normalizer;
 import java.util.*;
 
@@ -13,7 +16,7 @@ import java.util.*;
  * @author Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova
  * @version pro školní rok 2016/2017
  */
-public class Prostor {
+public class Prostor implements Observable {
     private int counter = 0;
     private String nazev; //nazev mistnosti
     private String popis; //popis mistnosti
@@ -25,17 +28,33 @@ public class Prostor {
     private boolean viditelny; //infromace o tom zda je prostor viditelny
     private int zivotnost; //kolik pruchodu se bude mistnost zobrazovat
     private Vymena vymena; //instance vymeny
+    private final Double posTop;
+    private final Double posLeft;
+    Set<Observer> observers = new HashSet<>();
+
+    public Double getPosTop() {
+        return posTop;
+    }
+
+    public Double getPosLeft() {
+        return posLeft;
+    }
+
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
      * před domem"
      *
-     * @param nazev nazev prostoru, jednoznačný identifikátor, jedno slovo nebo
-     * víceslovný název bez mezer.
-     * @param popis Popis prostoru.
+     * @param nazev   nazev prostoru, jednoznačný identifikátor, jedno slovo nebo
+     *                víceslovný název bez mezer.
+     * @param popis   Popis prostoru.
+     * @param posTop
+     * @param posLeft
      */
-    public Prostor(String nazev, String popis, HerniPlan plan) {
+    public Prostor(String nazev, String popis, HerniPlan plan, Double posTop, Double posLeft) {
         this.nazev = nazev;
         this.popis = popis;
+        this.posTop = posTop;
+        this.posLeft = posLeft;
         vychody = new ArrayList<>();
         veciVMistnosti = new ArrayList<>();
         this.zamceno = false;
@@ -43,7 +62,6 @@ public class Prostor {
         this.plan = plan;
         viditelny = true;
         zivotnost = 999;
-        vymena = null;
     }
 
 
@@ -77,6 +95,7 @@ public class Prostor {
      */
     public void vlozVec(Vec vec) {
         veciVMistnosti.add(vec);
+        notifyObservers();
     }
 
     /**
@@ -242,7 +261,7 @@ public class Prostor {
     }
     private String vypisKonec(){
         return "Aktuální předměty v batohu:" + plan.getBatuzek().getPredmetyVBatohu() + "\n"
-                + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/15";
+                + "Kapacita batohu: " + plan.getBatuzek().getVelikostBatuzku() + "/" + plan.getBatuzek().getMaximalniVelikostBatuzku();
     }
 
     private String vypisSpecial(SeznamPrikazu seznamPrikazu){
@@ -508,5 +527,25 @@ public class Prostor {
         counter++;
     }
 
+    public List<Vec> getVeciVMistnosti() {
+        return Collections.unmodifiableList(veciVMistnosti);
+    }
+
+    @Override
+    public void register(cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregister(cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer observer) {
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+
+    }
 
 }

@@ -2,11 +2,18 @@ package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
 
 
+import cz.vse.adventuramojecestazaukradenymzlatembers06.main.Adventura;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observable;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
+import javafx.scene.control.TextArea;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *  Třída Hra - třída představující logiku adventury.
@@ -20,16 +27,29 @@ import java.util.List;
  *@version    pro školní rok 2016/2017
  */
 
-public class Hra implements IHra {
+public class Hra implements IHra{
     private HerniPlan herniPlan; //obsahuje instanci herniho plan
     private static boolean konecHry = false; //nastavuje konec hry
     private String epilog = "Dohrál jsi tuto úžasnou hru, našel jsi ukradené zlato a je už jen na tobě, jestli si ho necháš, nebo ho půjdeš vrátit do města. Děkuji za zahrání!";
     private List<String> pouzitePrikazy;
+    private static Hra singleton = new Hra();
 
+
+    /**
+     * Podle navrhoveho vzoru Singleton (GoF).
+     */
+    public static Hra getSingleton(){
+        return singleton;
+    }
+
+    public static Hra restartHry() {
+        singleton = new Hra();
+        return singleton;
+    }
     /**
      * Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
      */
-    public Hra() {
+    private Hra() {
         herniPlan = new HerniPlan();
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazNapoveda(herniPlan.getPlatnePrikazy()));
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazJdi(this));
@@ -129,7 +149,8 @@ public class Hra implements IHra {
             reader.close();
             String[] actionStrings = str.toString().split("\n");
             for (String actionString : actionStrings) {
-                zpracujPrikaz(actionString);
+                TextArea textArea = Adventura.getTextArea();
+                textArea.appendText("\n" + zpracujPrikaz(actionString) + "\n" + "\n");
             }
         } catch (IOException e) {
             // handle exception
@@ -167,6 +188,7 @@ public class Hra implements IHra {
     public void setEpilog(String epilog) {
         this.epilog = epilog;
     }
+
 
 }
 
