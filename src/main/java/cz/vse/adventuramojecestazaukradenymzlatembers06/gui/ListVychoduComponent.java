@@ -14,8 +14,8 @@ public class ListVychoduComponent extends ListView<String> implements Observer {
     private HerniPlan herniPlan;
     private ObservableList<String> itemsList;
 
-    public ListVychoduComponent(HerniPlan herniPlan) {
-        this.herniPlan = herniPlan;
+    public ListVychoduComponent() {
+        this.herniPlan = Hra.getSingleton().getHerniPlan();
         herniPlan.register(this);
 
         itemsList = FXCollections.observableArrayList();
@@ -40,6 +40,7 @@ public class ListVychoduComponent extends ListView<String> implements Observer {
 
     @Override
     public void update() {
+        this.herniPlan = Hra.getSingleton().getHerniPlan();
         itemsList.clear();
         for (Prostor prostor : herniPlan.getAktualniProstor().getVychody()) {
             if (prostor.isZamceno()){

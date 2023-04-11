@@ -26,6 +26,7 @@ public class ListBatohComponent extends FlowPane implements Observer {
 
     @Override
     public void update() {
+        hra = Hra.getSingleton();
         getChildren().clear();
         hra.getHerniPlan().getBatuzek().getObsah().forEach(vec -> {
             ImageView imageView = new ImageView(vec.getObrazek());

@@ -12,11 +12,6 @@ public class ListMistnostComponent extends FlowPane implements Observer {
     private Hra hra = Hra.getSingleton();
 
     public ListMistnostComponent() {
-        hra.getHerniPlan().register(this);
-        hra.getHerniPlan().getBatuzek().register(this);
-        hra.getHerniPlan().getAktualniProstor().register(this);
-
-
         update();
     }
 
@@ -25,6 +20,10 @@ public class ListMistnostComponent extends FlowPane implements Observer {
 
     @Override
     public void update() {
+        hra = Hra.getSingleton();
+        hra.getHerniPlan().register(this);
+        hra.getHerniPlan().getBatuzek().register(this);
+        hra.getHerniPlan().getAktualniProstor().register(this);
         getChildren().clear();
         for (Vec vec : hra.getHerniPlan().getAktualniProstor().getVeciVMistnosti()) {
             if (vec.isViditelna()){

@@ -3,12 +3,15 @@ package cz.vse.adventuramojecestazaukradenymzlatembers06.logika;
 
 
 import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observable;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *  Třída Hra - třída představující logiku adventury.
@@ -22,12 +25,13 @@ import java.util.List;
  *@version    pro školní rok 2016/2017
  */
 
-public class Hra implements IHra {
+public class Hra implements IHra{
     private HerniPlan herniPlan; //obsahuje instanci herniho plan
     private static boolean konecHry = false; //nastavuje konec hry
     private String epilog = "Dohrál jsi tuto úžasnou hru, našel jsi ukradené zlato a je už jen na tobě, jestli si ho necháš, nebo ho půjdeš vrátit do města. Děkuji za zahrání!";
     private List<String> pouzitePrikazy;
     private static Hra singleton = new Hra();
+
 
     /**
      * Podle navrhoveho vzoru Singleton (GoF).

@@ -1,18 +1,13 @@
 package cz.vse.adventuramojecestazaukradenymzlatembers06.main;
 
-import cz.vse.adventuramojecestazaukradenymzlatembers06.gui.ListBatohComponent;
-import cz.vse.adventuramojecestazaukradenymzlatembers06.gui.ListMistnostComponent;
-import cz.vse.adventuramojecestazaukradenymzlatembers06.gui.ListVychoduComponent;
-import cz.vse.adventuramojecestazaukradenymzlatembers06.gui.MapaHry;
+import cz.vse.adventuramojecestazaukradenymzlatembers06.gui.*;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.logika.Hra;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.logika.IHra;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.uiText.TextoveRozhrani;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -20,10 +15,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
+
 
 public class Adventura extends Application {
     IHra hra = Hra.getSingleton();
     private static TextArea textArea = new TextArea();
+    ListVychoduComponent listVychodu = new ListVychoduComponent();
+    ListBatohComponent listBatoh = new ListBatohComponent();
+    ListMistnostComponent listMistnost = new ListMistnostComponent();
+    MapaHry mapaHry = new MapaHry();
 
     public static void main(String[] args) {
         if (args.length > 0 && args[0].equals("-text")) {
@@ -34,18 +35,18 @@ public class Adventura extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(@NotNull Stage primaryStage) {
         BorderPane parent = new BorderPane();
         HBox hBox = new HBox();
         VBox vBox = new VBox();
         VBox vBox1 = new VBox();
         Label label = new Label("Zadej prikaz");
         TextField uzivatelskyVstup = new TextField();
-        ListVychoduComponent listVychodu = new ListVychoduComponent(hra.getHerniPlan());
-        ListBatohComponent listBatoh = new ListBatohComponent();
-        ListMistnostComponent listMistnost = new ListMistnostComponent();
-        AnchorPane ap = pripravMapuHry();
         Scene value = new Scene(parent, 1500, 750);
+        MenuBar menuBar = new MenuBar();
+        Menu menuHra = new Menu("Hra");
+        Menu menuNapoveda = new Menu("Napoveda");
+        nastavMenu(parent, menuBar, menuHra, menuNapoveda);
 
         listVychodu.setMaxWidth(200);
         listMistnost.setMaxWidth(200);
@@ -58,7 +59,7 @@ public class Adventura extends Application {
 
         parent.setRight(vBox1);
         parent.setLeft(vBox);
-        parent.setCenter(ap);
+        parent.setCenter(mapaHry);
 
         nastavTextAreaAUzivatelskyVstup(textArea, uzivatelskyVstup, label);
 
@@ -66,13 +67,44 @@ public class Adventura extends Application {
         primaryStage.show();
     }
 
-    private AnchorPane pripravMapuHry() {
-        MapaHry mapaHry = new MapaHry();
-        AnchorPane ap = mapaHry.getAnchorPane();
-        return ap;
+    private void nastavMenu(BorderPane parent, MenuBar menuBar, Menu menuHra, Menu menuNapoveda) {
+        MenuItem novaHra = new MenuItem("Nova hra");
+        MenuItem konecHry = new MenuItem("Konec hry");
+        MenuItem oProgramu = new MenuItem("O programu");
+        MenuItem ulozitHru = new MenuItem("Ulozit hru");
+        MenuItem nacistHru = new MenuItem("Nacist hru");
+
+        novaHra.addEventHandler(javafx.event.ActionEvent.ACTION, event -> {
+            hra = Hra.restartHry();
+            hra.getHerniPlan().register(listVychodu);
+            hra.getHerniPlan().register(listMistnost);
+            hra.getHerniPlan().register(mapaHry);
+            hra.getHerniPlan().getBatuzek().register(listBatoh);
+            hra.getHerniPlan().getBatuzek().register(listMistnost);
+            hra.getHerniPlan().getAktualniProstor().register(listMistnost);
+            hra.getHerniPlan().notifyObservers();
+            hra.getHerniPlan().getBatuzek().notifyObservers();
+            hra.getHerniPlan().getAktualniProstor().notifyObservers();
+            textArea.clear();
+            textArea.setText(hra.vratUvitani());
+        });
+
+        konecHry.addEventHandler(javafx.event.ActionEvent.ACTION, event -> {
+            System.exit(0);
+        });
+        oProgramu.addEventHandler(javafx.event.ActionEvent.ACTION, event -> {
+            NapovedaOkno napovedaOkno = new NapovedaOkno();
+            napovedaOkno.show();
+        });
+
+        menuHra.getItems().addAll(novaHra, konecHry);
+        menuNapoveda.getItems().add(oProgramu);
+        menuBar.getMenus().addAll(menuHra, menuNapoveda);
+        parent.setTop(menuBar);
     }
 
-    private void nastavTextAreaAUzivatelskyVstup(TextArea textArea, TextField vstup, Label label) {
+
+    private void nastavTextAreaAUzivatelskyVstup(@NotNull TextArea textArea, @NotNull TextField vstup, @NotNull Label label) {
         textArea.setEditable(false);
         textArea.setText(hra.vratUvitani());
         textArea.setMinHeight(700);
@@ -94,4 +126,5 @@ public class Adventura extends Application {
     public static TextArea getTextArea() {
         return textArea;
     }
+
 }
