@@ -20,7 +20,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
-
+/**
+ * Class Adventura, třída která spouští aplikaci v javaFX
+ *
+ * @author sberan1
+ */
 public class Adventura extends Application {
     Hra hra = Hra.getSingleton();
     private static TextArea textArea = new TextArea();

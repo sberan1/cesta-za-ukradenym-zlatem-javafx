@@ -8,6 +8,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
+/**
+ * Třída ListMistnostComponent, která je komponentou pro zobrazení seznamu věcí v místnosti
+ *
+ * @author sberan1
+ */
 public class ListMistnostComponent extends FlowPane implements Observer {
 
     private Hra hra = Hra.getSingleton();

@@ -9,6 +9,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
+
+/**
+ * Třída ListVychoduComponent, která je komponentou pro zobrazení seznamu východů
+ *
+ * @author sberan1
+ */
 public class ListVychoduComponent extends ListView<String> implements Observer {
 
     private HerniPlan herniPlan;

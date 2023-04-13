@@ -10,6 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+/**
+ * Třída MapaHry, která je komponentou pro zobrazení mapy hry
+ *
+ * @author sberan1
+ */
 public class MapaHry extends AnchorPane implements Observer {
     private IHra hra = Hra.getSingleton();
     private ImageView postava = new ImageView(new Image(MapaHry.class.getResourceAsStream("postava.gif"), 50.0, 50.0, false, false));

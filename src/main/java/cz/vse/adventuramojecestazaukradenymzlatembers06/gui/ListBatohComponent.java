@@ -8,6 +8,11 @@ import javafx.scene.layout.FlowPane;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.logika.Hra;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
 
+/**
+ * Třída ListBatohComponent, která je komponentou pro zobrazení seznamu věcí v batohu
+ *
+ * @author sberan1
+ */
 
 public class ListBatohComponent extends FlowPane implements Observer {
 
