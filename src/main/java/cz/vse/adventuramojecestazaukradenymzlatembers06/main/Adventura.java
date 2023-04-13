@@ -29,6 +29,11 @@ public class Adventura extends Application {
     ListMistnostComponent listMistnost = new ListMistnostComponent();
     MapaHry mapaHry = new MapaHry();
 
+    /**
+     * Spustí požadovanou verzi adventury podle argumentů v příkazové řádce
+     *
+     * @param args argumenty příkazové řádky
+     */
     public static void main(String[] args) {
         if (args.length > 0 && args[0].equals("-text")) {
             TextoveRozhrani.main(args);
@@ -37,6 +42,14 @@ public class Adventura extends Application {
         }
     }
 
+    /**
+     *  Metoda která se volá při spuštění aplikace, nastavuje scénu a zobrazuje ji
+     *
+     * @param primaryStage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(@NotNull Stage primaryStage) {
         BorderPane parent = new BorderPane();
@@ -69,6 +82,16 @@ public class Adventura extends Application {
         primaryStage.setScene(value);
         primaryStage.show();
     }
+
+    /**
+     * Nastaví textArea a uzivatelskyVstup tak, aby se daly používat v aplikaci
+     *
+     * @param parent borderPane, který obsahuje to jak hra vypadá
+     * @param menuBar menuBar, který obsahuje menu, ktere budeme upravovat
+     * @param menuHra menu, ktere obsahuje moznosti hry
+     * @param menuNapoveda menu, ktere obsahuje napovedu
+     * @param primaryStage hlavni okno aplikace
+     */
 
     private void nastavMenu(BorderPane parent, MenuBar menuBar, Menu menuHra, Menu menuNapoveda, Stage primaryStage) {
         MenuItem novaHra = new MenuItem("Nova hra");
@@ -128,6 +151,13 @@ public class Adventura extends Application {
     }
 
 
+    /**
+     * Nastaví textArea a uzivatelskyVstup tak, aby se daly používat v aplikaci.
+     *
+     * @param textArea textArea, do kterého se vypisují výstupy z hry
+     * @param vstup textové pole, do kterého uživatel zadává příkazy
+     * @param label label, který se zobrazuje nad textovým polem
+     */
     private void nastavTextAreaAUzivatelskyVstup(@NotNull TextArea textArea, @NotNull TextField vstup, @NotNull Label label) {
         textArea.setEditable(false);
         textArea.setText(hra.vratUvitani());
@@ -147,6 +177,11 @@ public class Adventura extends Application {
         });
     }
 
+    /**
+     * Vrací textArea, do kterého se vypisují výstupy z hry
+     *
+     * @return textArea
+     */
     public static TextArea getTextArea() {
         return textArea;
     }

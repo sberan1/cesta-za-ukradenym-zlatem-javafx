@@ -14,6 +14,9 @@ public class ListVychoduComponent extends ListView<String> implements Observer {
     private HerniPlan herniPlan;
     private ObservableList<String> itemsList;
 
+    /**
+     * Konstruktor třídy, nastavuje herní plán a registruje se jako observer, přidává do panelu seznam východů, přidává funkci pro kliknutí na východ
+     */
     public ListVychoduComponent() {
         this.herniPlan = Hra.getSingleton().getHerniPlan();
         herniPlan.register(this);
@@ -36,8 +39,9 @@ public class ListVychoduComponent extends ListView<String> implements Observer {
     }
 
 
-
-
+    /**
+     * Metoda pro aktualizaci seznamu východů a přidání do panelu
+     */
     @Override
     public void update() {
         this.herniPlan = Hra.getSingleton().getHerniPlan();

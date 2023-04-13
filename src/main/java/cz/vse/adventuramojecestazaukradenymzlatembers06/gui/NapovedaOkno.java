@@ -8,6 +8,10 @@ import java.net.URL;
 
 public class NapovedaOkno extends Stage {
 
+    /**
+     * Konstruktor třídy pro vytvoření okna s nápovědou, které se zobrazí po stisknutí tlačítka "Nápověda".
+     * Obsahuje odkaz na HTML soubor s nápovědou.
+     */
         public NapovedaOkno() {
             WebView webView = new WebView();
             WebEngine engine = webView.getEngine();

@@ -11,7 +11,7 @@ public class ModifikaceZivota implements INavrat{
     }
 
     /**
-     *
+     * Ubere hracovy zivoty z herniho planu
      */
     @Override
     public void navratovaHodnota() {

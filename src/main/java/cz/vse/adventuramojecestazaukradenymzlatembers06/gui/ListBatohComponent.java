@@ -13,6 +13,9 @@ public class ListBatohComponent extends FlowPane implements Observer {
 
     private Hra hra = Hra.getSingleton();
 
+    /**
+     * Konstruktor třídy
+     */
     public ListBatohComponent() {
         hra.getHerniPlan().getBatuzek().register(this);
 
@@ -20,9 +23,9 @@ public class ListBatohComponent extends FlowPane implements Observer {
     }
 
 
-
-
-
+    /**
+     * Metoda pro aktualizaci seznamu věcí v batohu a přidání do panelu
+     */
     @Override
     public void update() {
         hra = Hra.getSingleton();

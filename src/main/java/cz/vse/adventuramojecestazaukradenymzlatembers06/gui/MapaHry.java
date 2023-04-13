@@ -16,13 +16,18 @@ public class MapaHry extends AnchorPane implements Observer {
     private int counter = 0;
     HerniPlan plan = hra.getHerniPlan();
 
-
+    /**
+     * Konstruktor třídy
+     */
     public MapaHry(){
         plan.register(this);
         init();
         aktualizuj();
     }
 
+    /**
+     * Metoda pro aktualizaci pozice postavy na mapě podle aktuálního prostoru. Metoda je volána z observeru.
+     */
     private void aktualizuj() {
         hra = Hra.getSingleton();
         plan = hra.getHerniPlan();
@@ -32,6 +37,9 @@ public class MapaHry extends AnchorPane implements Observer {
         AnchorPane.setTopAnchor(postava, posY);
     }
 
+    /**
+     * Metoda pro inicializaci komponenty
+     */
     private void init() {
         Image image = new Image(MapaHry.class.getResourceAsStream("Mapa.jpeg"), 1000.0, 750.0, false, false);
         ImageView imageView = new ImageView(image);
@@ -39,6 +47,9 @@ public class MapaHry extends AnchorPane implements Observer {
 
     }
 
+    /**
+     * Metoda pro aktualizaci komponenty
+     */
     @Override
     public void update() {
         aktualizuj();
