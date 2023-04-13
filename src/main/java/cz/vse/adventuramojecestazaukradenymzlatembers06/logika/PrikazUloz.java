@@ -15,14 +15,19 @@ public class PrikazUloz implements IPrikaz{
     File currentDirectory = new File("."); // current directory
 
 
-
+    /**
+     * konstruktor
+     * @param hra - hra, ktera se ma ulozit
+     */
     public PrikazUloz(Hra hra) {
         this.hra = hra;
     }
 
     /**
+     * provede prikaz a zpeta se na cestu kam ulozit soubor
+     *
      * @param parametry počet parametrů závisí na konkrétním příkazu.
-     * @return
+     * @return zpráva, kterou vypíše hra hráči
      */
     @Override
     public String provedPrikaz(String... parametry) {
@@ -72,7 +77,8 @@ public class PrikazUloz implements IPrikaz{
     }
 
     /**
-     * @return
+     * metoda pro ziskani nazvu prikazu
+     * @return - nazev prikazu
      */
     @Override
     public String getNazev() {
@@ -80,18 +86,30 @@ public class PrikazUloz implements IPrikaz{
     }
 
     /**
-     * @return
+     * metoda pro ziskani poctu pouziti prikazu
+     * @return - pocet pouziti prikazu
      */
     @Override
     public int getCounter() {
         return counter;
     }
 
+     /**
+     * metoda pro nacitani stringu z konzole
+     * @return - zadany String
+     */
+
     private String prectiString() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("> ");
         return scanner.nextLine();
     }
+
+    /**
+     * vrati cislo pokud je zadano cislo, jinak null
+     * @param value - String ktery chceme prevest na cislo
+     * @return Integer nebo null podle toho jestli se to povedlo
+     */
 
     public Integer parseIntOrNull(String value) {
         try {

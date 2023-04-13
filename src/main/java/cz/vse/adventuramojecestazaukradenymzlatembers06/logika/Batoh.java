@@ -95,16 +95,28 @@ public class Batoh implements Observable {
     public ArrayList<Vec> getObsah(){
         return (ArrayList<Vec>) obsah.clone();
     }
+
+    /**
+     * metoda pro registraci observeru
+     *
+     * @param observer - observer ktery se ma registrovat
+     */
     @Override
     public void register(Observer observer) {
         observers.add(observer);
     }
 
+    /**
+     * metoda pro odregistrovani observeru
+     */
     @Override
     public void unregister(Observer observer) {
-
+        observers.remove(observer);
     }
 
+    /**
+     * metoda pro upozorneni observeru
+     */
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {

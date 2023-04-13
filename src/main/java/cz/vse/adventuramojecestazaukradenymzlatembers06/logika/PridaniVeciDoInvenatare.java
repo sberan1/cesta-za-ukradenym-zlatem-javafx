@@ -8,6 +8,11 @@ public class PridaniVeciDoInvenatare implements INavrat{
     private List<Vec> veci;
     private Batoh batuzek;
 
+    /**
+     * Přidá věci do inventáře
+     * @param batuzek batoh
+     * @param vec věci co se mají přidat
+     */
     public PridaniVeciDoInvenatare(Batoh batuzek, Vec... vec) {
         veci = new ArrayList<>();
         this.batuzek = batuzek;
@@ -15,7 +20,7 @@ public class PridaniVeciDoInvenatare implements INavrat{
     }
 
     /**
-     *
+     * Přidá věci do inventáře
      */
     @Override
     public void navratovaHodnota() {

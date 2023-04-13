@@ -527,19 +527,37 @@ public class Prostor implements Observable {
         counter++;
     }
 
+    /**
+     * Vraci seznam veci v mistnosti
+     *
+     * @return seznam veci v mistnosti
+     */
     public List<Vec> getVeciVMistnosti() {
         return Collections.unmodifiableList(veciVMistnosti);
     }
 
+    /**
+     * registruje observer
+     * @param observer - observer ktery se ma registrovat
+     */
     @Override
-    public void register(cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer observer) {
+    public void register(Observer observer) {
         observers.add(observer);
     }
 
+    /**
+     * Odregistruje observer
+     * @param observer - observer ktery se ma odregistrovat
+     */
+
     @Override
-    public void unregister(cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer observer) {
+    public void unregister(Observer observer){
+        observers.remove(observer);
     }
 
+    /**
+     * Metoda pro aktualizaci stavu
+     */
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {

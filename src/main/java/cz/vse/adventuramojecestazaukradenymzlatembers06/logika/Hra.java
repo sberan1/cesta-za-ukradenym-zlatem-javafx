@@ -27,7 +27,7 @@ import java.util.Set;
  *@version    pro školní rok 2016/2017
  */
 
-public class Hra implements IHra{
+public final class Hra implements IHra{
     private HerniPlan herniPlan; //obsahuje instanci herniho plan
     private static boolean konecHry = false; //nastavuje konec hry
     private String epilog = "Dohrál jsi tuto úžasnou hru, našel jsi ukradené zlato a je už jen na tobě, jestli si ho necháš, nebo ho půjdeš vrátit do města. Děkuji za zahrání!";
@@ -42,6 +42,9 @@ public class Hra implements IHra{
         return singleton;
     }
 
+    /**
+     * restartuje hru, vytvori novou instanci, kterou nastavi jako singleton a vrati ji
+     */
     public static Hra restartHry() {
         singleton = new Hra();
         return singleton;
@@ -123,7 +126,10 @@ public class Hra implements IHra{
         return textKVypsani;
     }
 
-    // save the game
+    /**
+     * uloží hru do textového souboru
+     * @param filePath cesta k souboru
+     */
     public void ulozHru(String filePath) {
         try {
             FileWriter writer = new FileWriter(filePath, false);
@@ -133,10 +139,15 @@ public class Hra implements IHra{
             writer.close();
         } catch (IOException e) {
             // handle exception
+            System.out.println("chyba");
         }
     }
 
-    // load the game
+    /**
+     * načte hru ze souboru
+     * @param filePath cesta k souboru
+     */
+
     public void nactiHru(String filePath) {
         try {
             pouzitePrikazy = new ArrayList<>();
@@ -154,6 +165,7 @@ public class Hra implements IHra{
             }
         } catch (IOException e) {
             // handle exception
+            System.out.println("chyba");
         }
     }
 
