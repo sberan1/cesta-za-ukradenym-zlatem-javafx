@@ -23,7 +23,7 @@ public class ListBatohComponent extends FlowPane implements Observer {
      */
     public ListBatohComponent() {
         hra.getHerniPlan().getBatuzek().register(this);
-
+        setMaxHeight(200);
         update();
     }
 

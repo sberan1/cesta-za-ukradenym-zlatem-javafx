@@ -10,6 +10,8 @@ public class PrikazProzkoumej implements IPrikaz{
     private int counter = 0; //pocita pouziti prikazu
     private HerniPlan plan; //instance herniho planu obsahujici
     private static final String NAZEV = "prozkoumej"; //nazev prikazu a jeho zneni pro pouziti
+    boolean viditelnost = true;
+
 
     public PrikazProzkoumej(HerniPlan plan) {
         this.plan = plan;
@@ -70,5 +72,10 @@ public class PrikazProzkoumej implements IPrikaz{
     @Override
     public int getCounter() {
         return counter;
+    }
+
+    @Override
+    public boolean isViditelny() {
+        return viditelnost;
     }
 }

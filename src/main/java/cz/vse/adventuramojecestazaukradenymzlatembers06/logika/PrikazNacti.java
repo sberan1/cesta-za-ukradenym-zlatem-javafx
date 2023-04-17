@@ -11,6 +11,7 @@ public class PrikazNacti implements IPrikaz{
     private static final String NAZEV = "načti"; //nazev prikazu a jeho zneni pro pouziti
     private Hra hra;
     File currentDirectory = new File("."); // current directory
+    boolean viditelnost = true;
 
 
     public PrikazNacti(Hra hra) {
@@ -69,6 +70,11 @@ public class PrikazNacti implements IPrikaz{
     @Override
     public int getCounter() {
         return counter;
+    }
+
+    @Override
+    public boolean isViditelny() {
+        return viditelnost;
     }
 
     /**

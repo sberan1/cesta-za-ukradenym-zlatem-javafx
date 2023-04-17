@@ -12,9 +12,10 @@ public class PrikazNapoveda implements IPrikaz {
     private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "nápověda"; //nazev prikazu a jeho zneni pro pouziti
     private SeznamPrikazu platnePrikazy; //instance tridy seznamPrikazu
-    
-    
-     /**
+    boolean viditelnost = true;
+
+
+    /**
     *  Konstruktor třídy
     *  
     *  @param platnePrikazy seznam příkazů,
@@ -59,5 +60,10 @@ public class PrikazNapoveda implements IPrikaz {
     @Override
     public int getCounter() {
         return counter;
+    }
+
+    @Override
+    public boolean isViditelny() {
+        return viditelnost;
     }
 }

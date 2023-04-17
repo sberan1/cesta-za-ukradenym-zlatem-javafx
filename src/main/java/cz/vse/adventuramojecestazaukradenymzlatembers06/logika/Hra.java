@@ -66,6 +66,7 @@ public final class Hra implements IHra{
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazPouzij(herniPlan));
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazUloz(this));
         herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazNacti(this));
+        herniPlan.getPlatnePrikazy().vlozPrikaz(new PrikazIdkfa(herniPlan));
         pouzitePrikazy = new ArrayList<>();
     }
 

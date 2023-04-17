@@ -114,6 +114,10 @@ public class Batoh implements Observable {
         observers.remove(observer);
     }
 
+    public void setVelikostBatuzku(int velikostBatuzku) {
+        this.velikostBatuzku = velikostBatuzku;
+    }
+
     /**
      * metoda pro upozorneni observeru
      */

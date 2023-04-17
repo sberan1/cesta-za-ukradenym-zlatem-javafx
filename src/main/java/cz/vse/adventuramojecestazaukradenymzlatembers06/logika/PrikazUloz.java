@@ -13,6 +13,7 @@ public class PrikazUloz implements IPrikaz{
     private static final String NAZEV = "ulož"; //nazev prikazu a jeho zneni pro pouziti
     private Hra hra;
     File currentDirectory = new File("."); // current directory
+    boolean viditelnost = true;
 
 
     /**
@@ -94,7 +95,12 @@ public class PrikazUloz implements IPrikaz{
         return counter;
     }
 
-     /**
+    @Override
+    public boolean isViditelny() {
+        return viditelnost;
+    }
+
+    /**
      * metoda pro nacitani stringu z konzole
      * @return - zadany String
      */
