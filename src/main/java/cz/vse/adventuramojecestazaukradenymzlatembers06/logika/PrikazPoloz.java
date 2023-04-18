@@ -11,6 +11,8 @@ public class PrikazPoloz implements IPrikaz{
     private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "poloz"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan; //instance tridy herni plan
+    boolean viditelnost = true;
+
 
     /**
      * Konstruktor tridy
@@ -69,5 +71,10 @@ public class PrikazPoloz implements IPrikaz{
     @Override
     public int getCounter() {
         return counter;
+    }
+
+    @Override
+    public boolean isViditelny() {
+        return viditelnost;
     }
 }

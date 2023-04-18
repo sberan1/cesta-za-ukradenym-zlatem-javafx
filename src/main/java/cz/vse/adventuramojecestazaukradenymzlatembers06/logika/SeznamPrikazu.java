@@ -72,8 +72,10 @@ public class SeznamPrikazu {
      */
     public String vratNazvyPrikazu() {
         StringBuilder seznam = new StringBuilder();
-        for (String slovoPrikazu : mapaSPrikazy.keySet()){
-            seznam.append(slovoPrikazu).append(' ');
+        for (IPrikaz prikaz : mapaSPrikazy.values()){
+            if(prikaz.isViditelny()){
+            seznam.append(prikaz.getNazev()).append(' ');
+            }
         }
         return seznam.toString();
     }

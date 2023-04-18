@@ -21,6 +21,10 @@ import java.util.Scanner;
 public class TextoveRozhrani {
     private IHra hra;
 
+    /**
+     * Metoda main
+     * @param args parametry příkazového řádku
+     */
     public static void main(String[] args) {
         Hra hra = Hra.getSingleton();
         new TextoveRozhrani(hra).hraj();

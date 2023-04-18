@@ -10,6 +10,7 @@ public class PrikazSeber implements IPrikaz {
     private int counter = 0; //pocita pouziti prikazu
     private static final String NAZEV = "seber"; //nazev prikazu a jeho zneni pro pouziti
     private HerniPlan plan; //instance herniho planu
+    boolean viditelnost = true;
 
     /**
      * Konstruktor tridy
@@ -81,5 +82,10 @@ public class PrikazSeber implements IPrikaz {
     @Override
     public int getCounter() {
         return counter;
+    }
+
+    @Override
+    public boolean isViditelny() {
+        return viditelnost;
     }
 }

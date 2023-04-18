@@ -35,4 +35,5 @@ interface IPrikaz {
      * @return pocet pouziti prikazu
      */
     int getCounter();
+    boolean isViditelny();
 }

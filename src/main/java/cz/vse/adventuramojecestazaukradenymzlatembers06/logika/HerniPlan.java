@@ -32,7 +32,6 @@ public class HerniPlan implements Observable {
     private int pocetZivotu = 100; //nastaveni defaultniho poctu zivotu
     private SeznamPrikazu platnePrikazy;
 
-    
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví halu.
@@ -383,6 +382,10 @@ public class HerniPlan implements Observable {
         return placeholder.toString();
     }
 
+    public List<Vec> getVeci() {
+        return veci;
+    }
+
     public String vypisSeznamNepotkanychVeci(){
         StringBuilder placeholder = new StringBuilder();
         for(Vec item : veci){
@@ -405,15 +408,25 @@ public class HerniPlan implements Observable {
         return platnePrikazy;
     }
 
+    /**
+     * registrovani observeru sledujici zmenu v hernim planu
+     */
     @Override
     public void register(Observer observer) {
         observers.add(observer);
     }
 
+    /**
+     * odregistrovani observeru sledujici zmenu v hernim planu
+     */
     @Override
     public void unregister(Observer observer) {
+        observers.remove(observer);
     }
 
+    /**
+     * upozorneni observeru sledujici zmenu v hernim planu
+     */
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {

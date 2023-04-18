@@ -8,21 +8,29 @@ import javafx.scene.layout.FlowPane;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.logika.Hra;
 import cz.vse.adventuramojecestazaukradenymzlatembers06.observer.Observer;
 
+/**
+ * Třída ListBatohComponent, která je komponentou pro zobrazení seznamu věcí v batohu
+ *
+ * @author sberan1
+ */
 
 public class ListBatohComponent extends FlowPane implements Observer {
 
     private Hra hra = Hra.getSingleton();
 
+    /**
+     * Konstruktor třídy
+     */
     public ListBatohComponent() {
         hra.getHerniPlan().getBatuzek().register(this);
-
+        setMaxHeight(200);
         update();
     }
 
 
-
-
-
+    /**
+     * Metoda pro aktualizaci seznamu věcí v batohu a přidání do panelu
+     */
     @Override
     public void update() {
         hra = Hra.getSingleton();

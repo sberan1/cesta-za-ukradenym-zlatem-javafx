@@ -14,7 +14,9 @@ public class PrikazJdi implements IPrikaz {
     private static final String NAZEV = "jdi"; //nazev prikazu a jeho zneni pro pouziti
     private Hra hra; //instance tridy hra
     private HerniPlan plan; //instance herniho planu
-    
+    boolean viditelnost = true;
+
+
     /**
     *  Konstruktor třídy
     *  
@@ -103,5 +105,10 @@ public class PrikazJdi implements IPrikaz {
     @Override
     public int getCounter() {
         return counter;
+    }
+
+    @Override
+    public boolean isViditelny() {
+        return viditelnost;
     }
 }

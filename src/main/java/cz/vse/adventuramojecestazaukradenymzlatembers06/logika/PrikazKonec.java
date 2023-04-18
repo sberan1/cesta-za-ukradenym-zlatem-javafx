@@ -15,6 +15,8 @@ public class PrikazKonec implements IPrikaz {
     private static final String NAZEV = "konec"; //nazev prikazu a jeho zneni ve hre
 
     private Hra hra; //instance trida hra
+    boolean viditelnost = true;
+
 
     /**
      *  Konstruktor třídy
@@ -63,4 +65,11 @@ public class PrikazKonec implements IPrikaz {
     public int getCounter() {
         return counter;
     }
+
+    @Override
+    public boolean isViditelny() {
+        return viditelnost;
+    }
+
+
 }
